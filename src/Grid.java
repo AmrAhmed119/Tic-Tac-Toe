@@ -1,37 +1,38 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Grid extends JFrame {
-    XO [][] Grid = new XO[3][3];
+public class Grid extends JLabel implements ActionListener {
+
+    private JButton[] buttons;
 
     Grid(){
-        this.setSize(800,700);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setLayout(null);
-        this.getContentPane().setBackground(new Color(49, 49, 68));
+        //grid
+        this.setBounds(235,178,330,344);
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        this.setBorder(border);
+        this.setLayout(new GridLayout(3,3,16,16));
 
 
-        ImageIcon image = new ImageIcon("tic-tac-toe.png");
-        this.setIconImage(image.getImage());
-
-        JPanel panel = new JPanel();
-        panel.setBounds(0,165,500,500);
-        panel.setBackground(Color.BLACK);
-        panel.setLayout(new GridLayout(3,3));
-
-        JButton[] buttons = new JButton[9];
-        for (int i = 0;i < 9;i++){
+        buttons = new JButton[9];
+        for(int i=0;i<9;i++){
             buttons[i] = new JButton();
-            buttons[i].setBackground(Color.WHITE);
-            buttons[i].setFocusable(false);
-            buttons[i].setBounds(new Rectangle(160,130));
-            panel.add(buttons[i]);
+            buttons[i].setContentAreaFilled(false);
+            buttons[i].setBorder(null);
+            buttons[i].addActionListener(this);
+            this.add(buttons[i]);
         }
 
-        this.add(panel);
-        this.setVisible(true);
+
+
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }
