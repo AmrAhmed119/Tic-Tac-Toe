@@ -2,7 +2,6 @@ import javax.swing.*;
 
 public class Frame extends JFrame{
     Frame(){
-
         ImageIcon image = new ImageIcon("logo.png");
         this.setIconImage(image.getImage());
         this.setTitle("Tic-Tac-Toe");
@@ -12,10 +11,6 @@ public class Frame extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
-
     }
-
-
-
 
 }

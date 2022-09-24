@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 public class Menu implements ActionListener {
 
     Frame frame;
-    JButton SinglePlayer;
-    JButton TwoPlayers;
-    JButton Exit;
+    MyButton SinglePlayer;
+    MyButton TwoPlayers;
+    MyButton Exit;
     JLabel label;
 
     Menu(Frame frame) {
@@ -19,34 +19,47 @@ public class Menu implements ActionListener {
         label.setBounds(0, 0, 800, 700);
 
         //single player button
-        SinglePlayer = new JButton("SinglePlayer");
-        SinglePlayer.setBackground(new Color(30, 50, 54));
+        SinglePlayer = new MyButton("SinglePlayer");
+        SinglePlayer.setBorderColor(new Color(30, 50, 54));
         SinglePlayer.setForeground(Color.WHITE);
-        SinglePlayer.setFocusable(false);
-        SinglePlayer.setBorder(null);
-        SinglePlayer.setFont(new Font("MV Boli", Font.BOLD, 30));
         SinglePlayer.setBounds(270, 270, 250, 80);
+        SinglePlayer.setBackground(new Color(30, 50, 54));
+        SinglePlayer.setBorder(null);
+        SinglePlayer.setFocusable(false);
+        SinglePlayer.setFont(new Font("MV Boli", Font.ITALIC, 30));
+        SinglePlayer.setRadius(50);
         SinglePlayer.addActionListener(this);
+        SinglePlayer.setColorClick(new Color(30, 50, 54));
+        SinglePlayer.setColor(new Color(30, 50, 54));
+        SinglePlayer.setColorOver(new Color(68, 80, 112));
 
         //Two Players button
-        TwoPlayers = new JButton("TwoPlayers");
+        TwoPlayers = new MyButton("TwoPlayers");
         TwoPlayers.setBackground(new Color(30, 50, 54));
         TwoPlayers.setForeground(Color.WHITE);
         TwoPlayers.setFocusable(false);
         TwoPlayers.setBorder(null);
-        TwoPlayers.setFont(new Font("MV Boli", Font.BOLD, 30));
+        TwoPlayers.setFont(new Font("MV Boli", Font.ITALIC, 30));
         TwoPlayers.setBounds(270, 370, 250, 80);
+        TwoPlayers.setRadius(50);
         TwoPlayers.addActionListener(this);
+        TwoPlayers.setColorClick(new Color(30, 50, 54));
+        TwoPlayers.setColor(new Color(30, 50, 54));
+        TwoPlayers.setColorOver(new Color(68, 80, 112));
 
         //Exit button
-        Exit = new JButton("Exit");
+        Exit = new MyButton("Exit");
         Exit.setBackground(new Color(30, 50, 54));
         Exit.setForeground(Color.WHITE);
         Exit.setFocusable(false);
         Exit.setBorder(null);
-        Exit.setFont(new Font("MV Boli", Font.BOLD, 30));
+        Exit.setFont(new Font("MV Boli", Font.ITALIC, 30));
         Exit.setBounds(270, 470, 250, 80);
+        Exit.setRadius(50);
         Exit.addActionListener(this);
+        Exit.setColorClick(new Color(30, 50, 54));
+        Exit.setColor(new Color(30, 50, 54));
+        Exit.setColorOver(new Color(68, 80, 112));
 
         label.add(SinglePlayer);
         label.add(TwoPlayers);
@@ -59,23 +72,20 @@ public class Menu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == Exit) {
-            this.frame.dispose();
-            System.exit(0);
-
-        }
-
         if (e.getSource() == SinglePlayer) {
             this.label.setVisible(false);
-            new Game(frame);
-
+            new GameScreen(frame);
         }
 
         if (e.getSource() == TwoPlayers) {
             this.label.setVisible(false);
-            new Game(frame);
+            new GameScreen(frame);
         }
 
+        if (e.getSource() == Exit) {
+            this.frame.dispose();
+            System.exit(0);
+        }
     }
 
 
