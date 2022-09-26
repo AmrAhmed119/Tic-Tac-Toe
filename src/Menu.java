@@ -74,12 +74,12 @@ public class Menu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == SinglePlayer) {
             this.label.setVisible(false);
-            new GameScreen(frame);
+            new GameScreen(frame ,  true);
         }
 
         if (e.getSource() == TwoPlayers) {
             this.label.setVisible(false);
-            new GameScreen(frame);
+            new GameScreen(frame , false);
         }
 
         if (e.getSource() == Exit) {

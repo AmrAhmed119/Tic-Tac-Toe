@@ -7,9 +7,14 @@ public class Player {
     private ImageIcon signImage;
     private MyButton button;
 
+    private boolean isComputer;
+
     Player(XO sign){
         this.sign = sign;
     }
+
+    public boolean getComputer() { return isComputer; }
+    public void setComputer(boolean isComputer) { this.isComputer = isComputer; }
 
     public void setTurn(boolean turn){
         this.turn = turn;
