@@ -61,8 +61,6 @@ public class MyButton extends JButton {
         this.radius = radius;
     }
 
-
-
     public MyButton(String text) {
         setColor(Color.WHITE);
         colorOver = new Color(74, 75, 77);
@@ -108,6 +106,7 @@ public class MyButton extends JButton {
         colorClick = new Color(152, 184, 144);
         borderColor = new Color(0x196E7C);
         setContentAreaFilled(false);
+
 
         addMouseListener(new MouseAdapter() {
             @Override

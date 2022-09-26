@@ -9,13 +9,14 @@ public class Game extends JLabel implements ActionListener {
     private XO[][] valuesGrid;
     private Player Player1 , Player2;
     private JFrame frame;
-    private JLabel backGround;
+    private JLayeredPane p;
 
-    Game(JFrame frame , JLabel backGround) {
+
+    Game(JFrame frame , JLayeredPane p) {
         this.setBounds(235, 178, 330, 344);
         this.setLayout(new GridLayout(3, 3, 16, 16));
         this.frame = frame;
-        this.backGround = backGround;
+        this.p = p;
 
         buttons = new JButton[3][3];
         valuesGrid = new XO[3][3];
@@ -34,7 +35,8 @@ public class Game extends JLabel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println( Player2.getComputer() );
+
+        //System.out.println( Player2.getComputer() );
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (e.getSource() == buttons[i][j] && valuesGrid[i][j] == null ){
@@ -46,11 +48,8 @@ public class Game extends JLabel implements ActionListener {
                         Player1.OFF();
                         Player2.ON();
                         endGame();
-
                         //buttons[i][j].setVisible(true);
-
-
-                        if( Player2.getComputer() ){
+                        if( Player2.getComputer() && checkComp() != 0){
 
                             int [] cp = computerTurn( Player2.getSign() );
                             buttons[ cp[0] ][ cp[1] ].setIcon(Player2.getSignImage());
@@ -71,7 +70,6 @@ public class Game extends JLabel implements ActionListener {
                         Player1.ON();
                         Player2.OFF();
                     }
-
                     endGame();
                 }
             }
@@ -91,8 +89,31 @@ public class Game extends JLabel implements ActionListener {
                 if (this.valuesGrid[i][j] == XO.X) x++;
                 else if (this.valuesGrid[i][j] == XO.O) o++;
             }
-            if (x == 3) return XO.X;
-            else if (o == 3) return XO.O;
+            if (x == 3){
+                Color color = new Color(0x57BBC9);
+                this.buttons[i][0].setContentAreaFilled(true);
+                this.buttons[i][0].setBackground(color);
+
+                this.buttons[i][1].setContentAreaFilled(true);
+                this.buttons[i][1].setBackground(color);
+
+                this.buttons[i][2].setContentAreaFilled(true);
+                this.buttons[i][2].setBackground(color);
+
+                return XO.X;
+            }
+            else if (o == 3) {
+                Color color = new Color(0x57BBC9);
+                this.buttons[i][0].setContentAreaFilled(true);
+                this.buttons[i][0].setBackground(color);
+
+                this.buttons[i][1].setContentAreaFilled(true);
+                this.buttons[i][1].setBackground(color);
+
+                this.buttons[i][2].setContentAreaFilled(true);
+                this.buttons[i][2].setBackground(color);
+                return XO.O;
+            }
         }
 
         for (int j = 0; j < 3; j++) {
@@ -102,12 +123,62 @@ public class Game extends JLabel implements ActionListener {
                 if (this.valuesGrid[i][j] == XO.X) x++;
                 else if (this.valuesGrid[i][j] == XO.O) o++;
             }
-            if (x == 3) return XO.X;
-            else if (o == 3) return XO.O;
+            if (x == 3) {
+                Color color = new Color(0x57BBC9);
+                this.buttons[0][j].setContentAreaFilled(true);
+                this.buttons[0][j].setBackground(color);
+
+                this.buttons[1][j].setContentAreaFilled(true);
+                this.buttons[1][j].setBackground(color);
+
+                this.buttons[2][j].setContentAreaFilled(true);
+                this.buttons[2][j].setBackground(color);
+
+                return XO.X;
+            }
+            else if (o == 3){
+                Color color = new Color(0x57BBC9);
+                this.buttons[0][j].setContentAreaFilled(true);
+                this.buttons[0][j].setBackground(color);
+
+                this.buttons[1][j].setContentAreaFilled(true);
+                this.buttons[1][j].setBackground(color);
+
+                this.buttons[2][j].setContentAreaFilled(true);
+                this.buttons[2][j].setBackground(color);
+
+                return XO.O;
+
+            }
         }
 
-        if (this.valuesGrid[0][0] == this.valuesGrid[1][1] && this.valuesGrid[1][1] == this.valuesGrid[2][2]) return this.valuesGrid[0][0];
-        else if (this.valuesGrid[0][2] == this.valuesGrid[1][1] && this.valuesGrid[1][1] == this.valuesGrid[2][0]) return this.valuesGrid[0][2];
+        if (this.valuesGrid[0][0] == this.valuesGrid[1][1] && this.valuesGrid[1][1] == this.valuesGrid[2][2] && this.valuesGrid[2][2] != null){
+            Color color = new Color(0x57BBC9);
+            this.buttons[0][0].setContentAreaFilled(true);
+            this.buttons[0][0].setBackground(color);
+
+            this.buttons[1][1].setContentAreaFilled(true);
+            this.buttons[1][1].setBackground(color);
+
+            this.buttons[2][2].setContentAreaFilled(true);
+            this.buttons[2][2].setBackground(color);
+
+            return this.valuesGrid[0][0];
+
+        }
+        else if (this.valuesGrid[0][2] == this.valuesGrid[1][1] && this.valuesGrid[1][1] == this.valuesGrid[2][0] && this.valuesGrid[2][0] != null){
+            Color color = new Color(0x57BBC9);
+            this.buttons[0][2].setContentAreaFilled(true);
+            this.buttons[0][2].setBackground(color);
+
+            this.buttons[1][1].setContentAreaFilled(true);
+            this.buttons[1][1].setBackground(color);
+
+            this.buttons[2][0].setContentAreaFilled(true);
+            this.buttons[2][0].setBackground(color);
+
+            return this.valuesGrid[0][2];
+        }
 
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++) {
@@ -220,44 +291,50 @@ public class Game extends JLabel implements ActionListener {
     public void endGame(){
         XO checkF = checkFinish();
         if( checkF != null ){
-
+            Player1.OFF();
+            Player2.OFF();
             JLabel winner = new JLabel();
-            winner.setBounds(120,30,560,90);
+            winner.setBounds(130,30,540,90);
             winner.setFont(new Font("MV BOLI", Font.ITALIC | Font.BOLD, 40));
             winner.setForeground(new Color(255, 255, 255));
-            winner.setBackground(new Color(0x121818));
-
+            winner.setBackground(new Color(0x196E7C));
             winner.setOpaque(true);
+            winner.setHorizontalAlignment(JLabel.CENTER);
+            winner.setVerticalAlignment(JLabel.CENTER);
+
             if( checkF == XO.X || checkF == XO.O ){
                 winner.setText(checkF.toString() + " Wins!");
-            }else
-                winner.setText( "Tie!" );
-            this.backGround.add( winner );
 
+            }else {
+                winner.setText("Tie!");
+            }
+            // set non clickable buttons unenabled
+            for(int i=0;i<3;i++){
+                for(int j=0;j<3;j++){
+                    if(valuesGrid[i][j] == null){
+                        this.buttons[i][j].setEnabled(false);
+                    }
+                }
+            }
+
+
+
+            this.p.add(winner,Integer.valueOf(1));
         }
 
-        if (checkF == XO.X){
 
-
-
-        }else if (checkF == XO.O){
-            System.out.println("O");
-        }else if (checkF == XO.T){
-            System.out.println("Tie");
-        }
     }
-    public void exp( int val ){
-//        // exception
-//        try {
-//            Thread.sleep(val);
-//        } catch (InterruptedException ex) {
-//            throw new RuntimeException(ex);
-//        }
-        long start = System.currentTimeMillis();
-        long end = start + val;
-        while (System.currentTimeMillis() < end) {
-            // Some expensive operation on the item.
+
+    //check there is a cell for comp to play or not
+    public int checkComp(){
+        int cnt = 0;
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(valuesGrid[i][j] == null) cnt++;
+            }
         }
+        return cnt;
     }
+
 
 }

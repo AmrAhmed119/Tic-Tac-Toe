@@ -10,16 +10,20 @@ public class GameScreen implements ActionListener {
     private MyButton ChooseX,ChooseO;
     private JLabel chooseXO;
     private boolean chosen;
-
     private boolean comp;
 
+    private JLayeredPane p;
     GameScreen(Frame frame , boolean comp){
         this.frame = frame;
+        this.p = new JLayeredPane();
+        this.p.setBounds(0,0,800,700);
+
         JLabel backGround = new JLabel();
         backGround.setBounds(0,0,800,700);
         backGround.setIcon(new ImageIcon("grid.png"));
-        game = new Game(frame , backGround);
+        game = new Game(frame , p);
         this.comp = comp;
+
 
         ChooseO = new MyButton();
         ChooseO.setIcon(new ImageIcon("O.png"));
@@ -49,19 +53,22 @@ public class GameScreen implements ActionListener {
 
 
         chooseXO = new JLabel();
-        chooseXO.setText("        Choose X or O");
+        chooseXO.setText("Choose X or O");
+        chooseXO.setHorizontalAlignment(JLabel.CENTER);
+        chooseXO.setVerticalAlignment(JLabel.CENTER);
         chooseXO.setBounds(120,30,560,90);
         chooseXO.setFont(new Font("MV BOLI", Font.ITALIC | Font.BOLD, 40));
         chooseXO.setForeground(new Color(255, 255, 255));
         chooseXO.setBackground(new Color(0x196E7C));
         chooseXO.setOpaque(true);
 
-
         backGround.add(ChooseO);
         backGround.add(ChooseX);
         backGround.add(chooseXO);
         backGround.add(game);
-        this.frame.add(backGround);
+        this.p.add(backGround,Integer.valueOf(0));
+        this.frame.add(p);
+        //this.frame.add(backGround);
     }
 
 
@@ -74,17 +81,14 @@ public class GameScreen implements ActionListener {
             this.game.getPlayer1().setSignImage(new ImageIcon("O.png"));
             this.game.getPlayer1().setTurn(true);
             this.game.getPlayer1().setComputer(false);
+            this.game.getPlayer1().setButton(ChooseO);
+            this.game.getPlayer1().ON();
 
             this.game.setPlayer2(new Player(XO.X));
             this.game.getPlayer2().setSignImage(new ImageIcon("X.png"));
             this.game.getPlayer2().setTurn(false);
             this.game.getPlayer2().setComputer(this.comp);
-
-
-            this.game.getPlayer1().setButton(ChooseO);
             this.game.getPlayer2().setButton(ChooseX);
-
-            this.game.getPlayer1().ON();
             this.game.getPlayer2().OFF();
 
             this.openGrid();
@@ -99,22 +103,25 @@ public class GameScreen implements ActionListener {
             this.game.getPlayer1().setSignImage(new ImageIcon("X.png"));
             this.game.getPlayer1().setTurn(true);
             this.game.getPlayer1().setComputer(false);
+            this.game.getPlayer1().setButton(ChooseX);
+            this.game.getPlayer1().ON();
+
 
             this.game.setPlayer2(new Player(XO.O));
             this.game.getPlayer2().setSignImage(new ImageIcon("O.png"));
             this.game.getPlayer2().setTurn(false);
             this.game.getPlayer2().setComputer(this.comp);
-
-            this.game.getPlayer1().setButton(ChooseX);
             this.game.getPlayer2().setButton(ChooseO);
-
-            this.game.getPlayer1().ON();
             this.game.getPlayer2().OFF();
 
             this.openGrid();
 
             this.chosen = true;
         }
+    }
+
+    public JLayeredPane getP() {
+        return p;
     }
 
     public void openGrid(){
