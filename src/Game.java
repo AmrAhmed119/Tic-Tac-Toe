@@ -317,8 +317,6 @@ public class Game extends JLabel implements ActionListener {
                 }
             }
 
-
-
             this.p.add(winner,Integer.valueOf(1));
         }
 

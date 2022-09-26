@@ -9,21 +9,48 @@ public class GameScreen implements ActionListener {
     private Frame frame;
     private MyButton ChooseX,ChooseO;
     private JLabel chooseXO;
-    private boolean chosen;
-    private boolean comp;
-
+    private boolean chosen,comp;
+    private MyButton reset,exit;
     private JLayeredPane p;
+    private JLabel backGround;
     GameScreen(Frame frame , boolean comp){
         this.frame = frame;
         this.p = new JLayeredPane();
         this.p.setBounds(0,0,800,700);
 
-        JLabel backGround = new JLabel();
+        backGround = new JLabel();
         backGround.setBounds(0,0,800,700);
         backGround.setIcon(new ImageIcon("grid.png"));
         game = new Game(frame , p);
         this.comp = comp;
 
+        reset = new MyButton("Reset");
+        reset.setBackground( new Color(0x196E7C));
+        reset.addActionListener(this);
+        reset.setForeground(Color.WHITE);
+        reset.setFocusable(false);
+        reset.setBorder(null);
+        reset.setFont(new Font("MV Boli", Font.ITALIC, 30));
+        reset.setBounds(30,530,100,100);
+        reset.setRadius(50);
+        reset.addActionListener(this);
+        reset.setColorClick(new Color(30, 50, 54));
+        reset.setColor(new Color(30, 50, 54));
+        reset.setColorOver(new Color(68, 80, 112));
+
+        exit = new MyButton("Exit");
+        exit.setBackground( new Color(0x196E7C));
+        exit.addActionListener(this);
+        exit.setForeground(Color.WHITE);
+        exit.setFocusable(false);
+        exit.setBorder(null);
+        exit.setFont(new Font("MV Boli", Font.ITALIC, 30));
+        exit.setBounds(660,530,100,100);
+        exit.setRadius(50);
+        exit.addActionListener(this);
+        exit.setColorClick(new Color(30, 50, 54));
+        exit.setColor(new Color(30, 50, 54));
+        exit.setColorOver(new Color(68, 80, 112));
 
         ChooseO = new MyButton();
         ChooseO.setIcon(new ImageIcon("O.png"));
@@ -66,6 +93,8 @@ public class GameScreen implements ActionListener {
         backGround.add(ChooseX);
         backGround.add(chooseXO);
         backGround.add(game);
+        backGround.add(reset);
+        backGround.add(exit);
         this.p.add(backGround,Integer.valueOf(0));
         this.frame.add(p);
         //this.frame.add(backGround);
@@ -118,11 +147,23 @@ public class GameScreen implements ActionListener {
 
             this.chosen = true;
         }
+
+        if(e.getSource() == exit){
+            frame.dispose();
+            System.exit(0);
+        }
+
+        if(e.getSource() == reset){
+            new GameScreen(frame ,  true);
+
+        }
+
     }
 
     public JLayeredPane getP() {
         return p;
     }
+
 
     public void openGrid(){
         JButton [][] buttons = this.game.getButtons();
